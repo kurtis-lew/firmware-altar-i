@@ -18,3 +18,17 @@
 #     artifact-name: corne_left_with_studio
 #
 ---
+include:
+  - board: altar_i_us
+    artifact-name: altar_i_us
+  - board: altar_i_us
+    snippet: studio-rpc-usb-uart
+    cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n
+    artifact-name: altar_i_us_studio
+
+  - board: altar_i_uk
+    artifact-name: altar_i_uk
+  - board: altar_i_uk
+    snippet: studio-rpc-usb-uart
+    cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n
+    artifact-name: altar_i_uk_studio

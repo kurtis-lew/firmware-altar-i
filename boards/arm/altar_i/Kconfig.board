@@ -1,0 +1,10 @@
+# Copyright (c) 2025 Electronic Materials Office Ltd.
+# SPDX-License-Identifier: MIT
+
+config BOARD_ALTAR_I_US
+    bool "Altar I Keyboard (US Layout)"
+    depends on SOC_NRF52840_QIAA
+
+config BOARD_ALTAR_I_UK
+    bool "Altar I Keyboard (UK Layout)"
+    depends on SOC_NRF52840_QIAA

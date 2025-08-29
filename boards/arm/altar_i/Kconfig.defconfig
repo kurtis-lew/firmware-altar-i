@@ -1,0 +1,26 @@
+# Copyright (c) 2025 Electronic Materials Office Ltd.
+# SPDX-License-Identifier: MIT
+
+if (BOARD_ALTAR_I_US || BOARD_ALTAR_I_UK)
+
+config BOARD
+    default "altar_i_us" if BOARD_ALTAR_I_US
+    default "altar_i_uk" if BOARD_ALTAR_I_UK
+
+config ZMK_KEYBOARD_NAME
+    default "Altar I"
+
+if USB
+
+config USB_NRFX
+    default y
+
+config USB_DEVICE_STACK
+    default y
+
+endif # USB
+
+config BT_CTLR
+    default BT
+
+endif # (BOARD_ALTAR_I_US || BOARD_ALTAR_I_UK)
