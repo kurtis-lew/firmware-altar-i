@@ -1,4 +1,7 @@
 name: zmk-keyboards-altar_i
 build:
+  cmake: .
+  kconfig: Kconfig
   settings:
     board_root: .
+    snippet_root: .

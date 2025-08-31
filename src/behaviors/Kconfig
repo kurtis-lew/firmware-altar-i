@@ -1,0 +1,18 @@
+# Copyright (c) 2025 The ZMK Contributors
+# SPDX-License-Identifier: MIT
+
+menuconfig ZMK_EC11_AUTO_OFF
+    bool "Turn off rotary encoders automatically depending on ZMK state"
+    default y
+
+if ZMK_EC11_AUTO_OFF
+
+config ZMK_EC11_AUTO_OFF_IDLE
+    bool "Turn off rotary encoders when keyboard goes into idle state"
+    default n
+
+config ZMK_EC11_AUTO_OFF_SLEEP
+    bool "Turn off rotary encoders when keyboard goes into sleep state"
+    default n
+
+endif # ZMK_EC11_AUTO_OFF
