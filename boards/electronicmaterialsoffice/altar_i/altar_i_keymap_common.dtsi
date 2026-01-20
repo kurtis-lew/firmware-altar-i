@@ -1,0 +1,85 @@
+/*
+ * Copyright (c) 2026 Electronic Materials Office Limited
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+/ {
+	macros {
+        ZMK_MACRO1(bt_sel_prof,
+            display-name = "BLE Select Profile";
+            wait-ms = <1>;
+            tap-ms = <1>;
+            bindings
+                = <&macro_param_1to2>
+                , <&bt BT_SEL MACRO_PLACEHOLDER>
+                , <&out OUT_BLE>;
+        )
+
+        ZMK_MACRO(bt_clr_macro,
+            display-name = "BLE Clear Macro";
+            wait-ms = <1>;
+            tap-ms = <1>;
+            bindings
+                = <&bt BT_CLR>;
+        )
+
+        ZMK_MACRO(emoji_picker,
+            display-name = "Emoji Picker";
+            bindings
+                = <&macro_press &kp LCTRL &kp LGUI>
+			    , <&macro_tap &kp SPACE>
+			    , <&macro_release &kp LCTRL &kp LGUI>;
+        )
+	};
+};
+
+/ {
+	behaviors {
+		ht_bt_clr: hold_tap_bt_clear {
+			compatible = "zmk,behavior-hold-tap";
+			display-name = "HOLD_TAP_BT_CLEAR";
+			#binding-cells = <2>;
+			tapping-term-ms = <3000>;  // Changed to 3000ms (3 seconds)
+			quick-tap-ms = <0>;
+			flavor = "hold-preferred";  // Changed to hold-preferred
+			bindings = <&bt_clr_macro>, <&none>;
+		};
+		usb_and_layer: usb_and_layer {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings = <&out OUT_USB &to 1>;
+		};
+		bt1_and_layer: bt1_and_layer {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings = <&bt_sel_prof 0 &to 0>;
+		};
+		bt2_and_layer: bt2_and_layer {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings = <&bt_sel_prof 1 &to 0>;
+		};
+		globe_fn: globe_fn {
+			compatible = "zmk,behavior-hold-tap";
+			display-name = "GLOBE_FN";
+			#binding-cells = <2>;
+			tapping-term-ms = <200>;
+			quick-tap-ms = <0>;
+			flavor = "tap-preferred";
+			bindings = <&mo>, <&emoji_picker>;  // Hold: momentary layer, Tap: Emoji Picker
+		};
+		enter_cmd: enter_cmd {
+			compatible = "zmk,behavior-mod-morph";
+			#binding-cells = <0>;
+			bindings = <&kp ENTER>, <&enter_win_toggle>;  // Normal: ENTER, With CMD: check for CTRL
+			mods = <(MOD_LGUI | MOD_RGUI)>;
+		};
+		enter_win_toggle: enter_win_toggle {
+			compatible = "zmk,behavior-mod-morph";
+			#binding-cells = <0>;
+			bindings = <&kp ENTER>, <&tog 4>;  // CMD: ENTER, CMD + CTRL: toggle layer 4
+			mods = <(MOD_LCTL | MOD_RCTL)>;
+		};
+	};
+};

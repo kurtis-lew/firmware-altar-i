@@ -8,99 +8,7 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>
-
-/ {
-	macros {
-		tog_bt0: tog_bt0 {
-			compatible = "zmk,behavior-macro";
-			#binding-cells = <0>;
-			wait-ms = <40>;
-			tap-ms = <40>;
-			bindings = <&out OUT_BLE &bt BT_SEL 0>;
-		};
-		tog_bt1: tog_bt1 {
-			compatible = "zmk,behavior-macro";
-			#binding-cells = <0>;
-			wait-ms = <40>;
-			tap-ms = <40>;
-			bindings = <&out OUT_BLE &bt BT_SEL 1>;
-		};
-		zoom_in: zoom_in {
-			compatible = "zmk,behavior-macro";
-			#binding-cells = <0>;
-			bindings
-			= <&macro_press &kp LSHIFT &kp LGUI>
-			, <&macro_tap &kp EQUAL>
-			, <&macro_release &kp LSHIFT &kp LGUI>
-			;
-		};
-		bt_clr_macro: bt_clr_macro {
-			label = "bt_clr_macro";
-			compatible = "zmk,behavior-macro";
-			#binding-cells = <0>;
-			bindings = <&bt BT_CLR>;
-		};
-		emoji_picker: emoji_picker {
-			compatible = "zmk,behavior-macro";
-			#binding-cells = <0>;
-			bindings
-			= <&macro_press &kp LCTRL &kp LGUI>
-			, <&macro_tap &kp SPACE>
-			, <&macro_release &kp LCTRL &kp LGUI>
-			;
-		};
-	};
-};
-
-/ {
-	behaviors {
-		ht_bt_clr: hold_tap_bt_clear {
-			compatible = "zmk,behavior-hold-tap";
-			label = "HOLD_TAP_BT_CLEAR";
-			#binding-cells = <2>;
-			tapping-term-ms = <2000>;  // Changed to 3000ms (3 seconds)
-			quick-tap-ms = <0>;
-			flavor = "hold-preferred";  // Changed to hold-preferred
-			bindings = <&bt_clr_macro>, <&none>;
-		};
-		usb_and_layer: usb_and_layer {
-			compatible = "zmk,behavior-macro";
-			#binding-cells = <0>;
-			bindings = <&out OUT_USB &to 1>;
-		};
-		bt1_and_layer: bt1_and_layer {
-			compatible = "zmk,behavior-macro";
-			#binding-cells = <0>;
-			bindings = <&tog_bt0 &to 0>;
-		};
-		bt2_and_layer: bt2_and_layer {
-			compatible = "zmk,behavior-macro";
-			#binding-cells = <0>;
-			bindings = <&tog_bt1 &to 0>;
-		};
-		globe_fn: globe_fn {
-			compatible = "zmk,behavior-hold-tap";
-			label = "GLOBE_FN";
-			#binding-cells = <2>;
-			tapping-term-ms = <200>;
-			quick-tap-ms = <0>;
-			flavor = "tap-preferred";
-			bindings = <&mo>, <&emoji_picker>;  // Hold for layer, tap for emoji
-		};
-		enter_cmd: enter_cmd {
-			compatible = "zmk,behavior-mod-morph";
-			#binding-cells = <0>;
-			bindings = <&kp ENTER>, <&enter_win_toggle>;  // Normal: ENTER, With CMD: check for CTRL
-			mods = <(MOD_LGUI|MOD_RGUI)>;
-		};
-		enter_win_toggle: enter_win_toggle {
-			compatible = "zmk,behavior-mod-morph";
-			#binding-cells = <0>;
-			bindings = <&kp ENTER>, <&tog 4>;  // With just CMD: ENTER, With CMD+CTRL: toggle layer 4
-			mods = <(MOD_LCTL|MOD_RCTL)>;
-		};
-	};
-};
+#include "altar_i_keymap_common.dtsi"
 
 / {
 	keymap {
@@ -169,7 +77,7 @@
 			&trans           &mo 3            &trans           &trans                                       &trans                                                              &trans           &trans           &kp HOME         &kp PAGE_DOWN      &kp END
 			>;
 
-			sensor-bindings = <&inc_dec_kp &zoom_in MINUS>;
+			sensor-bindings = <&inc_dec_kp LG(LS(EQUAL)) LG(MINUS)>;
 		};
 
 		sys_layer {
