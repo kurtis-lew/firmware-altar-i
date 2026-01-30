@@ -69,17 +69,5 @@
 			flavor = "tap-preferred";
 			bindings = <&mo>, <&emoji_picker>;  // Hold: momentary layer, Tap: Emoji Picker
 		};
-		enter_cmd: enter_cmd {
-			compatible = "zmk,behavior-mod-morph";
-			#binding-cells = <0>;
-			bindings = <&kp ENTER>, <&enter_win_toggle>;  // Normal: ENTER, With CMD: check for CTRL
-			mods = <(MOD_LGUI | MOD_RGUI)>;
-		};
-		enter_win_toggle: enter_win_toggle {
-			compatible = "zmk,behavior-mod-morph";
-			#binding-cells = <0>;
-			bindings = <&kp ENTER>, <&tog 4>;  // CMD: ENTER, CMD + CTRL: toggle layer 4
-			mods = <(MOD_LCTL | MOD_RCTL)>;
-		};
 	};
 };
